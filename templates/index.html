@@ -1,0 +1,639 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Контрольная работа</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .shell {
+  position: relative;
+  line-height: 1; }
+  .shell span {
+    position: absolute;
+    left: 3px;
+    top: 1px;
+    color: #ccc;
+    pointer-events: none;
+    z-index: -1; }
+    .shell span i {
+      font-style: normal;
+      /* any of these 3 will work */
+      color: transparent;
+      opacity: 0;
+      visibility: hidden; }
+
+input.masked,
+.shell span {
+  font-size: 24px;
+  font-family: monospace;
+  padding-bottom: 1px;
+    
+  background-color: transparent;
+  text-transform: uppercase; }
+      
+    </style>
+    
+    
+    
+  </head>
+  <body class="text-center">
+    <header class="p-3 mb-3 border-bottom fixed-top bg-light">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+            <img src="../static/img/BMSTU.png" width="32" height="36">
+          </a>
+          <div class="me-auto"></div> 
+          {% if time != '0' %}
+          <div class="col-2  mb-2 mb-md-0">
+            До конца контрольной:
+            <div id="timer"></div>
+          </div>
+          {% endif %}
+          <div class="me-auto"></div>
+  
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../static/img/student.png" width="32" height="32" >
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              
+              <li><h6 class="dropdown-header" >{{surname}}</h6></li>
+              <li><h6 class="dropdown-header" >{{name}}</h6></li>
+              <li><h6 class="dropdown-header" >{{otch}}</h6></li>
+              <li><h6 class="dropdown-header" >{{grup}}</h6></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/">Войти заново</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    {% if translation or arithmetic%}
+    <div class="pt-5 mt-5">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="me-lg-auto"></div>
+        <div class="card col-1">
+          <div class="card-body">
+            A = {{A}}
+          </div>
+        </div>
+        <div class="me-lg-auto"></div>
+        <div class="card col-1">
+          <div class="card-body">
+            B = {{B}}
+          </div>
+        </div>
+        <div class="me-lg-auto"></div>
+      </div>
+      {% endif %}
+      <form action="/end" method="POST" id="form2">
+      {% if translation%}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Прямой</th>
+            <th scope="col">Обратный</th>
+            <th scope="col">Дополнительный</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">A</th>
+            <td><input required name="AP" id="AP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AP}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AO" id="AO" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AO}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AD" id="AD" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AD}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">B</th>
+            <td><input required name="BP" id="BP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BP}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BO" id="BO" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BO}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BD" id="BD" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BD}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">-A</th>
+            <td><input required name="APM" id="APM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{APM}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AOM" id="AOM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AOM}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="ADM" id="ADM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{ADM}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">-B</th>
+            <td><input required name="BPM" id="BPM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BPM}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BOM" id="BOM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BOM}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BDM" id="BDM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BDM}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">A*2^-2</th>
+            <td><input required name="APM2" id="APM2" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{APM2}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AOM2" id="AOM2" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AOM2}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="ADM2" id="ADM2" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{ADM2}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">A*2^-3</th>
+            <td><input required name="APM3" id="APM3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{APM3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AOM3" id="AOM3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AOM3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="ADM3" id="ADM3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{ADM3}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">A*2^3</th>
+            <td><input required name="AP3" id="AP3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AP3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AO3" id="AO3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AO3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AD3" id="AD3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AD3}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">A*2^4</th>
+            <td><input required name="AP4" id="AP4" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AP4}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AO4" id="AO4" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AO4}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="AD4" id="AD4" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AD4}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">B*2^-2</th>
+            <td><input required name="BPM2" id="BPM2" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BPM2}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BOM2" id="BOM2" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BOM2}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BDM2" id="BDM2" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BDM2}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">B*2^-3</th>
+            <td><input required name="BPM3" id="BPM3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BPM3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BOM3" id="BOM3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BOM3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BDM3" id="BDM3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BDM3}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">B*2^3</th>
+            <td><input required name="BP3" id="BP3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BP3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BO3" id="BO3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BO3}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BD3" id="BD3" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BD3}}" data-valid-example="1.111 1111"></td>
+          </tr>
+          <tr>
+            <th scope="row">B*2^4</th>
+            <td><input required name="BP4" id="BP4" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BP4}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BO4" id="BO4" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BO4}}" data-valid-example="1.111 1111"></td>
+            <td><input required name="BD4" id="BD4" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BD4}}" data-valid-example="1.111 1111"></td>
+          </tr>
+        </tbody>
+      </table>
+      {% if isEnd %}
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="me-lg-auto"></div>
+        <div class="card col-1">
+          <div class="card-body">
+           {{countTranslat}}/36
+          </div>
+        </div>
+        <div class="me-lg-auto"></div>
+      </div>
+      {% endif %}
+      {% endif %}
+      {% if arithmetic%}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Обратный</th>
+            <th scope="col">Дополнительный</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">A+B</th>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Ao</span>
+                </div>
+                <input required name="AOP" id="AOP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AOP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bo</span>
+                </div>
+                <input required name="BOP" id="BOP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BOP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Co</span>
+                </div>
+                <input required name="COP" id="COP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{COP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="COPP" id="COPP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{COPP}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aд</span>
+                </div>
+                <input required name="ADP" id="ADP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{ADP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bд</span>
+                </div>
+                <input required name="BDP" id="BDP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BDP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cд</span>
+                </div>
+                <input required name="CDP" id="CDP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CDP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="CDPP" id="CDPP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CDPP}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            
+          </tr>
+          <tr>
+            <th scope="row">A-B</th>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Ao</span>
+                </div>
+                <input required name="AOS" id="AOS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AOS}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bo</span>
+                </div>
+                <input required name="BOS" id="BOS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BOS}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Co</span>
+                </div>
+                <input required name="COS" id="COS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{COS}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="COPS" id="COPS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{COPS}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aд</span>
+                </div>
+                <input required name="ADS" id="ADS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{ADS}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bд</span>
+                </div>
+                <input required name="BDS" id="BDS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BDS}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cд</span>
+                </div>
+                <input required name="CDS" id="CDS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CDS}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="CDPS" id="CDPS" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CDPS}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">-A+B</th>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Ao</span>
+                </div>
+                <input required name="MAOP" id="MAOP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MAOP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bo</span>
+                </div>
+                <input required name="MBOP" id="MBOP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MBOP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Co</span>
+                </div>
+                <input required name="MCOP" id="MCOP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCOP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="MCOPP" id="MCOPP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCOPP}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aд</span>
+                </div>
+                <input required name="MADP" id="MADP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MADP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bд</span>
+                </div>
+                <input required name="MBDP" id="MBDP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MBDP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cд</span>
+                </div>
+                <input required name="MCDP" id="MCDP" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCDP}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="MCDPP1" id="MCDPP1" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCDPP1}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">-A-B</th>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Ao</span>
+                </div>
+                <input required name="MAOM" id="MAOM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MAOM}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bo</span>
+                </div>
+                <input required name="MBOM" id="MBOM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MBOM}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Co</span>
+                </div>
+                <input required name="MCOM" id="MCOM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCOM}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="MCOPM" id="MCOPM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCOPM}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aд</span>
+                </div>
+                <input required name="MADM" id="MADM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MADM}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bд</span>
+                </div>
+                <input required name="MBDM" id="MBDM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MBDM}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cд</span>
+                </div>
+                <input required name="MCDM" id="MCDM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCDM}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="MCDPM" id="MCDPM" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{MCDPM}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {% if isEnd %}
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="me-lg-auto"></div>
+        <div class="card col-1">
+          <div class="card-body">
+           {{countArithmet}}/32
+          </div>
+        </div>
+        <div class="me-lg-auto"></div>
+      </div>
+      {% endif %}
+      {% endif %}
+      {% if mulanddiv%}
+
+      <div class="pt-5 mt-5">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <div class="me-lg-auto"></div>
+          <div class="card col-1">
+            <div class="card-body">
+              A = {{A}}
+            </div>
+          </div>
+          <div class="me-lg-auto"></div>
+          <div class="card col-1">
+            <div class="card-body">
+              B = {{B}}
+            </div>
+          </div>
+          <div class="me-lg-auto"></div>
+        </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Прямой</th>
+            <th scope="col">Обратный</th>
+            <th scope="col">Дополнительный</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">A*B</th>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aп</span>
+                </div>
+                <input required name="APMUL" id="APMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{APMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bп</span>
+                </div>
+                <input required name="BPMUL" id="BPMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BPMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="CPPMUL" id="CPPMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CPPMUL}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Ao</span>
+                </div>
+                <input required name="AOMUL" id="AOMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{AOMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bo</span>
+                </div>
+                <input required name="BOMUL" id="BOMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BOMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Co</span>
+                </div>
+                <input required name="COMUL" id="COMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{COMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="COPMUL" id="COPMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{COPMUL}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aд</span>
+                </div>
+                <input required name="ADMUL" id="ADMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{ADMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bд</span>
+                </div>
+                <input required name="BDMUL" id="BDMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BDMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cд</span>
+                </div>
+                <input required name="CDMUL" id="CDMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CDMUL}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="CDPMUL" id="CDPMUL" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{CDPMUL}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+            
+          </tr>
+          <tr>
+            <th scope="row">A/B</th>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Aп</span>
+                </div>
+                <input required name="APDIV" id="APDIV" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{APDIV}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Bп</span>
+                </div>
+                <input required name="BPDIV" id="BPDIV" type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})"  	 class="masked {{BPDIV}}" data-valid-example="1.111 1111">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cп</span>
+                </div>
+                <input required name="CPDIV" id="CPDIV"  type="tel" placeholder="X.XXX XXXX" pattern="([0-1])\.([0-1]{3})\ ([0-1]{4})" 	 class="masked {{CPDIV}}" data-valid-example="1.111 1111">
+              </div>
+            </td>
+          </tr>  
+            
+        </tbody>
+      </table>
+      {% if isEnd %}
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="me-lg-auto"></div>
+        <div class="card col-1">
+          <div class="card-body">
+           {{count}}/14
+          </div>
+        </div>
+        <div class="me-lg-auto"></div>
+      </div>
+      {% endif %}
+      {% endif %}
+      
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start py-5">
+        <div class="me-lg-auto"></div>
+        
+          <button type="submit" class="btn btn-outline-success">Завершить досрочно</button>
+        </form>
+        <div class="me-lg-auto"></div>
+      </div>
+
+    </div>
+    
+
+    <script>
+    if ('{{time}}' != 0){
+      let timerShow = document.getElementById("timer"); 
+      timeMinut = '{{time}}' * 60
+      document.addEventListener('DOMContentLoaded', function () {
+        timer = setInterval(function () {
+        seconds = timeMinut%60 // Получаем секунды
+        minuts = timeMinut/60%60 // Получаем минуты
+        hour = timeMinut/60/60%60 // Получаем часы
+        // Условие если время закончилось то...
+        if (timeMinut <= 0) {
+        // Таймер удаляется
+        clearInterval(timer);
+        // Выводит сообщение что время закончилось
+        alert("Время закончилось");
+        } else { // Иначе
+        // Создаём строку с выводом времени
+        let strTimer = `${Math.trunc(hour)}:${Math.trunc(minuts)}:${seconds}`;
+        // Выводим строку в блок для показа таймера
+        timerShow.innerHTML = strTimer;
+        }
+        --timeMinut; // Уменьшаем таймер
+        }, 1000)
+        
+      });
+    }
+      </script>
+    <script src="../static/js/masking-input.js" data-autoinit="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>   
+  </body>
+</html>
